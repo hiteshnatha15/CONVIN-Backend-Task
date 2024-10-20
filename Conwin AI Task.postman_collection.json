@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "20c76ff4-fbb7-4571-9717-60620d4a3201",
+		"name": "Conwin AI Task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36440147"
+	},
+	"item": [
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Hitesh Natha\",\n    \"email\": \"hiteshnatha15@gmail.com\",\n    \"mobile\": \"9772932374\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Details",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Hitesh Natha\",\n    \"email\": \"hiteshnatha15@gmail.com\",\n    \"mobile\": \"9772932374\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/users/6714be1ac6f05e8fe2db674c",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"users",
+						"6714be1ac6f05e8fe2db674c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Expense",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Dinner with friends\",\n    \"totalAmount\": 3000,\n    \"splitType\": \"equal\",\n    \"participants\": [\n        {\n            \"user\": \"6714c025f3d9501c3eeaa6a2\",\n            \"amount\": 1000\n        },\n        {\n            \"user\": \"6714c06ef3d9501c3eeaa6a6\",\n            \"amount\": 1000\n        }\n    ],\n    \"createdBy\": \"6714d49460e4d696903203f4\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/expenses",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"expenses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retrieve Individual User Expenses",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"description\": \"Dinner with friends\",\n    \"totalAmount\": 3000,\n    \"splitType\": \"equal\",\n    \"participants\": [\n        {\n            \"user\": \"6714c025f3d9501c3eeaa6a2\",\n            \"amount\": 1000\n        },\n        {\n            \"user\": \"6714c06ef3d9501c3eeaa6a6\",\n            \"amount\": 1000\n        }\n    ],\n    \"createdBy\": \"6714d49460e4d696903203f4\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:4000/api/expenses/user/6714c025f3d9501c3eeaa6a2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"expenses",
+						"user",
+						"6714c025f3d9501c3eeaa6a2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Download Balance Sheet",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var template = `",
+							"<style type=\"text/css\">",
+							"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}",
+							"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}",
+							"    .tftable tr {background-color:#ffffff;}",
+							"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}",
+							"    .tftable tr:hover {background-color:#e0ffff;}",
+							"</style>",
+							"",
+							"<table class=\"tftable\" border=\"1\">",
+							"    <tr>",
+							"        <th>Description</th>",
+							"        <th>Total Amount</th>",
+							"        <th>Split Type</th>",
+							"        <th>Participant User</th>",
+							"        <th>Participant Amount</th>",
+							"    </tr>",
+							"    ",
+							"    <tr>",
+							"        <td>{{description}}</td>",
+							"        <td>{{totalAmount}}</td>",
+							"        <td>{{splitType}}</td>",
+							"        <td>{{participants.user}}</td>",
+							"        <td>{{participants.amount}}</td>",
+							"    </tr>",
+							"</table>",
+							"`;",
+							"",
+							"function constructVisualizerPayload() {",
+							"    var csvResponse = pm.response.text();",
+							"    var lines = csvResponse.split(\"\\\\n\");",
+							"    var result = [];",
+							"    var headers = lines[0].split(\",\");",
+							"    for (var i = 1; i < lines.length; i++) {",
+							"        var obj = {};",
+							"        var currentLine = lines[i].split(\",\");",
+							"        for (var j = 0; j < headers.length; j++) {",
+							"            obj[headers[j].replace(/\\\"/g, \"\")] = currentLine[j].replace(/\\\"/g, \"\");",
+							"        }",
+							"        result.push(obj);",
+							"    }",
+							"    return { response: result[0] };",
+							"}",
+							"",
+							"pm.visualizer.set(template, constructVisualizerPayload());"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:4000/api/expenses/balance-sheet/6714c06ef3d9501c3eeaa6a6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "4000",
+					"path": [
+						"api",
+						"expenses",
+						"balance-sheet",
+						"6714c06ef3d9501c3eeaa6a6"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
